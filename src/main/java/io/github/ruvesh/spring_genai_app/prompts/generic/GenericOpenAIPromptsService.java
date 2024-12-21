@@ -1,13 +1,11 @@
 package io.github.ruvesh.spring_genai_app.prompts.generic;
 
 import io.github.ruvesh.spring_genai_app.data.dto.Response;
-import io.github.ruvesh.spring_genai_app.data.entity.PromptHistory;
 import io.github.ruvesh.spring_genai_app.service.PromptHistoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
