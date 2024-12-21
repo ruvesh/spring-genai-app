@@ -40,4 +40,10 @@ public class OpenAPIConfig {
         String[] packagesToScan = { "io.github.ruvesh.spring_genai_app.prompts.generic" };
         return GroupedOpenApi.builder().group("generic").packagesToScan(packagesToScan).build();
     }
+
+    @Bean
+    public GroupedOpenApi recommendationPromptsGroup(){
+        String[] packagesToScan = { "io.github.ruvesh.spring_genai_app.prompts.recommendation.books" };
+        return GroupedOpenApi.builder().group("recommendation").packagesToScan(packagesToScan).build();
+    }
 }

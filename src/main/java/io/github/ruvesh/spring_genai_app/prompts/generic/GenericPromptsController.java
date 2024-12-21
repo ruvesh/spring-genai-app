@@ -22,7 +22,7 @@ class GenericPromptsController {
         this.promptsService = promptsService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     @Operation(summary = "Generate a random greeting for the user with AI")
     ResponseEntity<Response> greetingEndpoint(){
         return ResponseEntity.ok(promptsService.greetUserWithAI());
