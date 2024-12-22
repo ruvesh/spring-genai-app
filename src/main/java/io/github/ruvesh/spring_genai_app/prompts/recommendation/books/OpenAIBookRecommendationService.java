@@ -1,5 +1,6 @@
 package io.github.ruvesh.spring_genai_app.prompts.recommendation.books;
 
+import io.github.ruvesh.spring_genai_app.annotation.Timer;
 import io.github.ruvesh.spring_genai_app.data.dto.Response;
 import io.github.ruvesh.spring_genai_app.service.PromptHistoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +25,9 @@ class OpenAIBookRecommendationService implements BookRecommendationService {
         this.chatClient = chatClientBuilder.build();
     }
 
+    @Timer
     @Override
     public Response getBookRecommendation(BookRequest request) {
-        long startTime = System.currentTimeMillis();
-        log.info("getBookRecommendation request started");
-
         String requestId = request.getRequestId().toString();
         String prompt = prepareBookRecommendationPromptForProvidedCriteria(request);
         log.info("Prompt sent to OpenAI completions api: {}", prompt);
@@ -38,8 +37,6 @@ class OpenAIBookRecommendationService implements BookRecommendationService {
                         .call()
                         .entity(new ParameterizedTypeReference<>() {});
         promptHistoryService.savePromptHistory(requestId, prompt, CollectionUtils.isEmpty(books) ? List.of().toString() : books.toString());
-
-        log.info("Time taken to complete getBookRecommendation request {}ms", (System.currentTimeMillis() - startTime));
         return new Response(requestId, books);
     }
 

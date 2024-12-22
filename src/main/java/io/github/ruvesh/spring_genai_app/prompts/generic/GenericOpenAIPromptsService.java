@@ -1,5 +1,6 @@
 package io.github.ruvesh.spring_genai_app.prompts.generic;
 
+import io.github.ruvesh.spring_genai_app.annotation.Timer;
 import io.github.ruvesh.spring_genai_app.data.dto.Response;
 import io.github.ruvesh.spring_genai_app.service.PromptHistoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +23,9 @@ class GenericOpenAIPromptsService implements GenericPromptsService {
         this.promptHistoryService = promptHistoryService;
     }
 
+    @Timer
     @Override
     public Response greetUserWithAI() {
-        long startTime = System.currentTimeMillis();
-        log.info("greetUserWithAI request started");
-
         String requestId = UUID.randomUUID().toString();
 
         String prompt = REQUEST_CONTEXT.concat("The time is ").concat(LocalTime.now().toString()).concat(". Based on time of the day, greet and welcome me to the platform, and mention some random trivia about AI.");
@@ -39,16 +38,12 @@ class GenericOpenAIPromptsService implements GenericPromptsService {
                 ;
 
         promptHistoryService.savePromptHistory(requestId, prompt, responseText);
-
-        log.info("Time taken to complete greetUserWithAI request {}ms",  (System.currentTimeMillis() - startTime));
         return new Response(requestId, responseText);
     }
 
+    @Timer
     @Override
     public Response askAnythingToAI(GenericPromptsRequest request) {
-        long startTime = System.currentTimeMillis();
-        log.info("askAnythingToAI request started");
-
         String requestId = request.getRequestId().toString();
 
         String finalPrompt = REQUEST_CONTEXT.concat(request.getPrompt());
@@ -60,8 +55,6 @@ class GenericOpenAIPromptsService implements GenericPromptsService {
                 .content();
 
         promptHistoryService.savePromptHistory(requestId, finalPrompt, responseText);
-
-        log.info("Time taken to complete askAnythingToAI request {}ms", (System.currentTimeMillis() - startTime));
         return new Response(requestId, responseText);
     }
 }
