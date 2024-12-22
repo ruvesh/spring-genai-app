@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Slf4j
@@ -28,9 +29,7 @@ class GenericOpenAIPromptsService implements GenericPromptsService {
 
         String requestId = UUID.randomUUID().toString();
 
-        String prompt = REQUEST_CONTEXT.concat("Generate a random greeting to welcome the user to the platform. " +
-                "Please check the time and then use the appropriate greeting based on time of the day in India Timezone. " +
-                "Additionally mention a random fact or trivia about AI.");
+        String prompt = REQUEST_CONTEXT.concat("The time is ").concat(LocalTime.now().toString()).concat(". Based on time of the day, greet and welcome me to the platform, and mention some random trivia about AI.");
         log.info("Prompt sent to OpenAI completions api: {}", prompt);
 
         String responseText = chatClient.prompt()
