@@ -28,3 +28,7 @@ springdoc:
     path: /api-playground
     operations-sorter: method
   override-with-generic-response: false
+
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
