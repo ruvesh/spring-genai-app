@@ -21,6 +21,7 @@ A GenAI application using Spring AI. User can ask generic questions to the AI, o
 ---
 ## Powered By
 * SpringBoot 3.4.1
+* SpringAI 1.0.0-M4
 * Java 17
 * MySQL 8.0.31
 * OpenAPI 3.0
